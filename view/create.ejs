@@ -1,0 +1,133 @@
+<%- include('partials/header') %>
+
+<style>
+  body {
+    background: url('/img/FondoCreate.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+</style>
+
+
+<form action="/create" id="formulario-registro" autocomplete="off" method="post" enctype="multipart/form-data">
+  <div class="card mt-2">
+    <div class="card-header"><strong>Registrar Vino</strong></div>
+
+    <div class="card-body">
+      <div class="row g-2">
+        <div class="col-md-6 mb-2">
+          <div class="form-floating">
+            <select name="marcas" id="marcas" class="form-select" required>
+              <option value="" selected disabled>Seleccione una marca</option>
+              <% if (marcas.length > 0) { %> 
+                <% marcas.forEach(marca => { %>
+                  <option value="<%= marca.idmarca %>"><%= marca.marca %></option>
+                <% }); %>
+              <% } else { %>
+                <option value="" disabled>No hay marcas disponibles</option>
+              <% } %>
+            </select>
+            <label for="marcas">Marca</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2">
+        <div class="col-md-6 mb-2">
+          <div class="form-floating">
+            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre del vino" required>
+            <label for="nombre">Nombre</label>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-2">
+          <div class="form-floating">
+            <input type="text" id="variedad" name="variedad" class="form-control" placeholder="Variedad" required>
+            <label for="variedad">Variedad</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2">
+        <div class="col-md-4 mb-2">
+          <div class="form-floating">
+            <input type="number" id="anio" name="anio" class="form-control" placeholder="Año de producción" min="1900" max="2099" required>
+            <label for="anio">Año</label>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-2">
+          <div class="form-floating">
+            <select name="tipo" id="tipo" class="form-select" required>
+              <option value="" selected disabled>Seleccione</option>
+              <option value="Tinto">Tinto</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Rosado">Rosado</option>
+              <option value="Espumante">Espumante</option>
+            </select>
+            <label for="tipo">Tipo</label>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-2">
+          <div class="form-floating">
+            <input type="number" id="alcohol" name="alcohol" class="form-control" placeholder="Alcohol" step="0.1" min="0" required>
+            <label for="alcohol">Alcohol (%)</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2">
+        <div class="col-md-12 mb-2">
+          <div class="form-floating">
+            <input type="number" id="precio" name="precio" class="form-control" placeholder="Precio" step="0.01" min="0" required>
+            <label for="precio">Precio (S/.)</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2">
+        <div class="col-md-12 mb-2">
+          <label for="imagen" class="form-label">Imagen del vino</label>
+          <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*" required>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-footer">
+      <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+      <a href="/" class="btn btn-sm btn-secondary">Cancelar</a>
+    </div>
+  </div>
+</form>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const formulario = document.querySelector("#formulario-registro");
+
+    formulario.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      Swal.fire({
+        title: 'Vinos',
+        text: '¿Está seguro de registrar este vino?',
+        icon: 'question',
+        footer: 'Tabernero - Sistema de Bodega',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#8e44ad',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#c0392b'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          formulario.submit(); 
+        }
+      });
+    });
+  });
+</script>
+
+<%- include('partials/footer') %>

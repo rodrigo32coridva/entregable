@@ -1,0 +1,169 @@
+<%- include('partials/header3') %>
+
+<style>
+  body {
+    background: url('/img/FondoIndex2.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin-top: 60px;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-img-top {
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 2px solid #f1f1f1;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .card-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  .card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn {
+    border-radius: 5px;
+    padding: 8px 15px;
+  }
+
+  .btn-info {
+    background-color: #3498db;
+    border-color: #2980b9;
+  }
+
+  .btn-info:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+  }
+
+  .btn-danger {
+    background-color: #e74c3c;
+    border-color: #c0392b;
+  }
+
+  .btn-danger:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+  }
+
+  .delete {
+    cursor: pointer;
+  }
+
+  .row {
+    margin-top: 20px;
+  }
+
+  .card-footer .btn {
+    font-size: 0.875rem;
+    padding: 6px 12px;
+  }
+</style>
+
+<div class="container">
+  <h2 class="text-center mb-4">Catálogo de Vinos</h2>
+  <div class="row">
+    <% vinos.forEach(vino => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <% if (vino.imagen_url) { %>
+            <img src="<%= vino.imagen_url %>" alt="Imagen del vino" style="max-width: 120px;">
+          <% } else { %>
+            <p>No hay imagen disponible.</p>
+          <% } %>
+          
+
+          <div class="card-body">
+            <h5 class="card-title"><%= vino.nombre %></h5>
+            <p class="card-text">
+              <strong>Variedad:</strong> <%= vino.variedad %><br>
+              <strong>Año:</strong> <%= vino.anio %><br>
+              <strong>Tipo:</strong> <%= vino.tipo %><br>
+              <strong>Alcohol:</strong> <%= vino.alcohol %> %<br>
+              <strong>Precio:</strong> S/. <%= parseFloat(vino.precio).toFixed(2) %>
+            </p>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <a href="/edit/<%= vino.idvino %>" class="btn btn-sm btn-info">Editar</a>
+            <a href="/delete/<%= vino.idvino %>" class="btn btn-sm btn-danger delete">Eliminar</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const enlacesEliminar = document.querySelectorAll(".delete");
+
+    enlacesEliminar.forEach((enlace) => {
+      enlace.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        Swal.fire({
+          title: 'Vinos',
+          text: '¿Está seguro de eliminar este vino?',
+          icon: 'question',
+          footer: 'Tabernero - Sistema de Bodega',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#2980b9',
+          showCancelButton: true,
+          cancelButtonText: 'Cancelar',
+          cancelButtonColor: '#c0392b'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = event.target.getAttribute("href");
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<%- include('partials/footer') %>

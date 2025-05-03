@@ -1,0 +1,80 @@
+<%- include('partials/header4') %>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: url('/img/FondoIndex.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+  }
+
+  .hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .hero-box {
+    background-color: rgba(0, 0, 0, 0.5); /* Aquí solo la caja tiene color de fondo */
+    border-radius: 10px;
+    padding: 40px 30px;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  }
+
+  .hero-box h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .hero-box p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .btn-lg {
+    font-size: 1.1rem;
+    padding: 12px 24px;
+  }
+
+  .btn-lg i {
+    margin-right: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .hero-box h2 {
+      font-size: 2rem;
+    }
+
+    .hero-box p {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<div class="hero-section">
+  <div class="hero-box">
+    <h2>Bienvenido a Viñedos Bodega Tabernero 🍷</h2>  
+    <p>Descubre nuestra selección exclusiva de vinos. Ya sea para una celebración especial o simplemente para disfrutar una buena copa, tenemos el vino perfecto para ti.</p>
+    <p>Explora el catálogo completo o comienza a registrar tus favoritos. ¡Queremos que vivas una experiencia vinícola inolvidable!</p>
+
+    <div class="mt-4">
+      <a href="/catalogo" class="btn btn-success btn-lg">
+        <i class="fas fa-wine-bottle"></i> Ver catálogo
+      </a>
+      <a href="/create" class="btn btn-primary btn-lg ml-3">
+        <i class="fas fa-plus-circle"></i> Registrar vino
+      </a>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
